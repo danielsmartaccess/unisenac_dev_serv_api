@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUAL CROSSFIT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>VISUAL CROSSFIT</h1>
+
+        <!-- Seção para escolher o tipo de cronômetro -->
+        <div>
+            <label for="timerType">Escolha o Tipo de Cronômetro:</label>
+            <select id="timerType" onchange="showTimerOptions()">
+                <option value="">Selecione...</option>
+                <option value="tabata">Tabata</option>
+                <option value="amrap">AMRAP</option>
+            </select>
+        </div>
+
+        <!-- Seção para o Cronômetro Tabata -->
+        <section id="tabataSection" style="display: none;">
+            <h2>Cronômetro Tabata</h2>
+            <div>
+                <label for="rounds">Número de Rodadas:</label>
+                <input type="number" id="rounds" value="4" onchange="updateTotalRounds()">
+            </div>
+            <div>
+                <label for="workTime">Tempo de Exercício (segundos):</label>
+                <input type="number" id="workTime" value="20">
+            </div>
+            <div>
+                <label for="restTime">Tempo de Descanso (segundos):</label>
+                <input type="number" id="restTime" value="10">
+            </div>
+            <button id="startTabataButton">Iniciar Tabata</button>
+            <button id="pauseTabataButton" disabled>Pausar</button>
+        </section>
+
+        <!-- Seção para o Cronômetro AMRAP -->
+        <section id="amrapSection" style="display: none;">
+            <h2>Cronômetro AMRAP</h2>
+            <div>
+                <label for="amrapDuration">Duração do AMRAP (em minutos):</label>
+                <input type="number" id="amrapDuration" placeholder="Ex: 20">
+            </div>
+            <button id="startAmrapButton">Iniciar AMRAP</button>
+        </section>
+
+        <!-- Seção para escolha de exercícios -->
+        <h3>Escolha os Exercícios:</h3>
+        <div id="exercicios-container"></div>
+
+        <!-- Displays do cronômetro e exercícios -->
+        <div id="exercise-display"></div>
+        <div id="round-display"></div>
+        <div id="timer-display"></div>
+    </div>
+
+    <!-- Scripts dos cronômetros -->
+    <script src="cronometroTabata.js"></script>
+    <script src="cronometroAmrap.js"></script>
+    <script>
+        function showTimerOptions() {
+            const timerType = document.getElementById('timerType').value;
+            document.getElementById('tabataSection').style.display = timerType === 'tabata' ? 'block' : 'none';
+            document.getElementById('amrapSection').style.display = timerType === 'amrap' ? 'block' : 'none';
+        }
+
+        function updateTotalRounds() {
+            const totalRounds = document.getElementById('rounds').value;
+            document.getElementById('round-display').innerText = `Round: 0 de ${totalRounds}`;
+        }
+    </script>
+</body>
+</html>
+
